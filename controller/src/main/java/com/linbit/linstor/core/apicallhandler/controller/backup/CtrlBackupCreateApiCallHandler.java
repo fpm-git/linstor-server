@@ -1060,6 +1060,7 @@ public class CtrlBackupCreateApiCallHandler
             if (deviceProviderKind.isSnapshotShippingSupported())
             {
                 ExtToolsManager extToolsManager = rsc.getNode().getPeer(peerAccCtx.get()).getExtToolsManager();
+                /*
                 errors.addEntry(
                     getErrorRcIfNotSupported(
                         deviceProviderKind,
@@ -1069,6 +1070,7 @@ public class CtrlBackupCreateApiCallHandler
                         new ExtToolsInfo.Version(2, 24)
                     )
                 );
+                */
                 if (deviceProviderKind.equals(DeviceProviderKind.LVM_THIN))
                 {
                     errors.addEntry(
