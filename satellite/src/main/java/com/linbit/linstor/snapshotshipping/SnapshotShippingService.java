@@ -157,9 +157,12 @@ public class SnapshotShippingService implements SystemService
             snapshotShippingReceivingCommandRef,
             new String[]
             {
-                "setsid", "-w",
                 "bash", "-c",
-                String.format(CMD_FORMAT_RECEIVING, port, snapshotShippingReceivingCommandRef)
+                "\"",
+                String.format(CMD_FORMAT_RECEIVING, port, snapshotShippingReceivingCommandRef),
+                "\"",
+                "&",
+                "wait", "$!"
             },
             shippingDescr,
             (success, alreadyInUse) -> postShipping(
@@ -185,14 +188,17 @@ public class SnapshotShippingService implements SystemService
             snapshotShippingSendingCommandRef,
             new String[]
             {
-                "setsid", "-w",
                 "bash", "-c",
+                "\"",
                 String.format(
                     CMD_FORMAT_SENDING,
                     snapshotShippingSendingCommandRef,
                     targetNetIfRef.getAddress(storDriverAccCtx).getAddress(),
                     socatPortRef
-                )
+                ),
+                "\"",
+                "&",
+                "wait", "$!"
             },
             shippingDescr,
             (success, alreadyInUse) -> postShipping(
