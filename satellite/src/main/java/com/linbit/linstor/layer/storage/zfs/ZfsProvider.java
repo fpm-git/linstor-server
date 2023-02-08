@@ -883,7 +883,6 @@ public class ZfsProvider extends AbsStorageProvider<ZfsInfo, ZfsData<Resource>, 
             final String srcFullSnapshotName = getCloneSnapshotNameFull(srcData, dstData, "@");
             cmd = new String[]
                 {
-                    "setsid", "-w",
                     "bash",
                     "-c",
                     String.format(
@@ -899,7 +898,12 @@ public class ZfsProvider extends AbsStorageProvider<ZfsInfo, ZfsData<Resource>, 
                         dstData.getZPool(),
                         dstId,
                         dstData.getZPool(),
-                        dstId)
+                        dstId),
+                    ),
+                    "\"",
+                    "&",
+                    "wait",
+                    "$!"
                 };
         }
         else
