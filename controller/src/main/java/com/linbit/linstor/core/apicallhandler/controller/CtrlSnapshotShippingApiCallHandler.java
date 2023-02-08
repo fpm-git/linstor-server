@@ -333,6 +333,7 @@ public class CtrlSnapshotShippingApiCallHandler
                 ExtToolsManager extToolsManager = rsc.getNode().getPeer(peerAccCtx.get()).getExtToolsManager();
                 checkRequiredExtTool(deviceProviderKind, extToolsManager, ExtTools.ZSTD, "zstd");
                 checkRequiredExtTool(deviceProviderKind, extToolsManager, ExtTools.SOCAT, "socat");
+                /*
                 checkRequiredExtTool(
                     deviceProviderKind,
                     extToolsManager,
@@ -340,6 +341,7 @@ public class CtrlSnapshotShippingApiCallHandler
                     "setsid from util_linux",
                     new ExtToolsInfo.Version(2, 24)
                 );
+                */
                 if (deviceProviderKind.equals(DeviceProviderKind.LVM_THIN))
                 {
                     checkRequiredExtTool(
