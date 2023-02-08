@@ -216,10 +216,9 @@ public abstract class AbsBackupShippingService implements SystemService
                 cmdRef,
                 new String[]
                 {
-                    "setsid",
-                    "-w",
                     "bash",
                     "-c",
+                    "\"",
                     getCommandSending(
                         cmdRef,
                         remoteMap.get(
@@ -232,7 +231,11 @@ public abstract class AbsBackupShippingService implements SystemService
                             )
                         ),
                         snapVlmData
-                    )
+                    ),
+                    "\"",
+                    "&",
+                    "wait",
+                    "$!"
                 },
                 snapNameRef,
                 backupName,
@@ -280,11 +283,14 @@ public abstract class AbsBackupShippingService implements SystemService
                 cmdRef,
                 new String[]
                 {
-                    "setsid",
-                    "-w",
                     "bash",
                     "-c",
-                    getCommandReceiving(cmdRef, remote, snapVlmData)
+                    "\"",
+                    getCommandReceiving(cmdRef, remote, snapVlmData),
+                    "\"",
+                    "&",
+                    "wait",
+                    "$!"
                 },
                 snapVlm.getSnapshotName().displayValue,
                 backupName,
