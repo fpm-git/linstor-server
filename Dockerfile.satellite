@@ -1,4 +1,4 @@
-ARG BUILDER=registry.access.redhat.com/ubi8/ubi
+ARG BUILDER=centos:centos7
 FROM $BUILDER as builder
 
 ENV LINSTOR_VERSION 1.20.0
@@ -18,12 +18,12 @@ RUN useradd -m -g makepkg makepkg # !lbbuild
 RUN yum install -y sudo # !lbbuild
 RUN usermod -a -G wheel makepkg # !lbbuild
 
-RUN yum install -y rpm-build wget unzip which make git java-1.8.0-openjdk-devel python2 && yum clean all -y # !lbbuild
+RUN yum install -y rpm-build wget unzip which make git java-1.8.0-openjdk-devel python && yum clean all -y # !lbbuild
 RUN rpm -e --nodeps fakesystemd && yum install -y systemd && yum clean all -y || true # !lbbuild
 
 # one can not comment COPY
-RUN cd /tmp && wget https://pkg.linbit.com/downloads/linstor/$LINSTOR_TGZ # !lbbuild
-# =lbbuild COPY /${LINSTOR_TGZ} /tmp/
+#RUN cd /tmp && wget https://pkg.linbit.com/downloads/linstor/$LINSTOR_TGZ # !lbbuild
+COPY /${LINSTOR_TGZ} /tmp/
 
 # =lbbuild COPY /pkgcache/* /tmp/pkgcache/
 
